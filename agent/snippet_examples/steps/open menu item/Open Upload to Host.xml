@@ -2,3 +2,4 @@
 <fmxmlsnippet type="FMObjectList">
   <Step enable="True" id="0" name="Open Upload to Host"/>
 </fmxmlsnippet>
+<!-- See https://help.claris.com/en/pro-help/content/upload-to-server.html -->
