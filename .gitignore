@@ -5,6 +5,12 @@ agent/context/
 agent/CONTEXT.json
 .private/
 
+# Generated Claris documentation (copyright Claris International Inc.)
+# Run agent/docs/filemaker/fetch_docs.py to generate locally.
+agent/docs/filemaker/script-steps/
+agent/docs/filemaker/functions/
+agent/docs/filemaker/error-codes.md
+
 # Specific files
 Prompt.md
 .cursorignore
