@@ -96,8 +96,7 @@ List (
 
 ### Boolean Values
 
-- `1` and `0` are the canonical true/false values
-- Never use `True` / `False` as literals — FileMaker treats them as field/variable names
+- `True` and `False` are the preferred boolean literals for code readability — FileMaker evaluates them as 1 and 0
 - Boolean variable names use present-tense verbs or adjectives: `$isComplete`, `~hasValue`
 
 ### Function Spacing
