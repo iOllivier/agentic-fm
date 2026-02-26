@@ -198,10 +198,11 @@ msg "Created archive folder: xml_exports/$SOLUTION_NAME/$(basename -- "$ARCHIVE_
 # Step 2: Copy export to archive
 # ---------------------------------------------------------------------------
 if [[ -f "$EXPORT_PATH" ]]; then
-    cp "$EXPORT_PATH" "$ARCHIVE_DIR/"
+    cp -- "$EXPORT_PATH" "$ARCHIVE_DIR/"
     msg "Copied file: $(basename -- "$EXPORT_PATH") -> xml_exports/$SOLUTION_NAME/$(basename -- "$ARCHIVE_DIR")/"
 elif [[ -d "$EXPORT_PATH" ]]; then
-    cp -R "$EXPORT_PATH"/* "$ARCHIVE_DIR"/
+    # Copy directory contents robustly (includes dotfiles, safe with odd names).
+    cp -R -- "$EXPORT_PATH"/. "$ARCHIVE_DIR"/
     msg "Copied directory contents -> xml_exports/$SOLUTION_NAME/$(basename -- "$ARCHIVE_DIR")/"
 else
     error "Path is neither a file nor a directory: $EXPORT_PATH"
@@ -211,7 +212,8 @@ fi
 # Step 3: Clear xml_parsed
 # ---------------------------------------------------------------------------
 if [[ -d "$XML_PARSED_DIR" ]]; then
-    rm -rf "$XML_PARSED_DIR"/*
+    # Clear contents safely without fragile glob expansion.
+    find "$XML_PARSED_DIR" -mindepth 1 -maxdepth 1 -exec rm -rf -- {} +
     msg "Cleared agent/xml_parsed/"
 else
     mkdir -p "$XML_PARSED_DIR"

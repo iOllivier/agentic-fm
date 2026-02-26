@@ -133,7 +133,8 @@ get_folder_path() {
 # Prepare output directory
 # ---------------------------------------------------------------------------
 if [[ -d "$CONTEXT_DIR" ]]; then
-    rm -rf "$CONTEXT_DIR"/*
+    # Clear contents safely without fragile glob expansion.
+    find "$CONTEXT_DIR" -mindepth 1 -maxdepth 1 -exec rm -rf -- {} +
     msg "Cleared agent/context/"
 else
     mkdir -p "$CONTEXT_DIR"
