@@ -70,11 +70,14 @@ export function createDiagnosticsProvider(
       }
 
       // Check for unknown step names (if we have a known list)
+      // Severity: Hint (no squiggly underline) — HR format viewing produces
+      // many false positives because sanitized step names don't always match
+      // the catalog exactly.
       if (knownSet.size > 0 && stepName && !knownSet.has(stepName.toLowerCase())) {
-        // Only warn for lines that look like step invocations (start with uppercase)
+        // Only hint for lines that look like step invocations (start with uppercase)
         if (/^[A-Z]/.test(stepName) && stepName !== 'Else') {
           markers.push({
-            severity: monaco.MarkerSeverity.Warning,
+            severity: monaco.MarkerSeverity.Hint,
             message: `Unknown step: "${stepName}"`,
             startLineNumber: lineNum,
             startColumn: 1,
